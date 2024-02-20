@@ -20,18 +20,25 @@ namespace CAtrans
             userInput = Console.ReadLine();
             double price = Double.Parse(userInput);
 
+            Console.WriteLine("Input the booked price of the trade:");
+            userInput = Console.ReadLine();
+            double bookprice = Double.Parse(userInput);
+
             Console.WriteLine("Input the transaction type:\n0 for Buy\n1 for Sell\n(default is Buy)");
             TransactionType trcType;
             userInput = Console.ReadLine();
             trcType = (TransactionType)Enum.Parse(typeof(TransactionType), userInput, true);
 
-            // Calculate Current Value (CV)
+            // Calculate Current Value (CV) and P/L
             sbyte sign = sbyte.Parse(trcType == TransactionType.Buy ? "1" : "-1");
             double curval = sign * nominal * price;
+            double prloss = trcType == TransactionType.Sell ? nominal * (price-bookprice):0;
+
 
             // Print data recap
             Console.WriteLine($"\nTransaction type: {trcType}\nNominal: {nominal}\nPrice: {price}");
             Console.WriteLine($"Transaction Current Value: {curval}");
+            Console.WriteLine($"Transaction Profit and Loss: {prloss}");
 
             Console.ReadKey();
         }
